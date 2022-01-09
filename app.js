@@ -3,15 +3,18 @@ const userSelect = document.getElementById('user-todo');
 const form = document.querySelector('form');
 const buttonDeleteAllTodo = document.getElementById('deleteAllTodo');
 
-
 let todos = [];
 let users = [];
 // let idForSubmit = 201;
-// let idFlag = 0;
+//let idFlag = 0;
 
 document.addEventListener('DOMContentLoaded', initApp);
 form.addEventListener('submit', handlerSubmit);
 buttonDeleteAllTodo.addEventListener('click', hundleDeleteAll);
+
+
+console.log('ВАЖНОЕ ЗАМЕЧАНИЕ!\nНЕПРАВИЛЬНАЯ РАБОТА СЕРВЕРА!placeholder всегда при создании нового элемента возвращает id=11, поэтому все новые элементы списка имеют одинаковый id = 11 \n => удалеяется только один 11ый элемент, \nа остальные остаются в списке')
+
 
 function getUserName(userId){
     const user = users.find(u => u.id === userId);
@@ -24,9 +27,9 @@ function printTodo({userId, id, title, completed}) {
     li.dataset.id = id;
     
     if (completed) {
-        li.innerHTML = `<span class="liText strikethroughText"> ${title} <i>by</i> <b>${getUserName(userId)}<b> </span>`;
+        li.innerHTML = `<span class="liText strikethroughText"> ${title} <i>by <b>${getUserName(userId)}</b></i> </span>`;
     } else {
-        li.innerHTML = `<span class="liText"> ${title} <i>by</i> <b>${getUserName(userId)}<b> </span>`;
+        li.innerHTML = `<span class="liText"> ${title} <i>by <b>${getUserName(userId)}</b></i> </span>`;
     }
 
 
@@ -70,10 +73,9 @@ function removeTodo(todoId) {
     const todo = todoList.querySelector(`[data-id="${todoId}"]`);
     todo.querySelector('input').removeEventListener('change', handlerCheckboxChange);
     todo.querySelector('.close').removeEventListener('click', handleClose);
-
     console.log(`${todoId} элемент удален`);
     todo.remove();
-    //ВАЖНОЕ ЗАМЕЧАНИЕ! placeholder всегда при создании возвращает новый id=11 при POST, 
+    //ВАЖНОЕ ЗАМЕЧАНИЕ! placeholder всегда при создании нового элемента списка возвращает новый id=11 (при POST), 
     //поэтому все новые элементы списка имеют одинаковый id => удаление происходит некорректно,
     //т.к. удалеяется только один 11ый элемент, а остальные остаются в списке
 }
@@ -87,17 +89,16 @@ function alertError(error) {
 
 function handlerSubmit(event) {
     event.preventDefault(); //иначе форма попробует отправиться синхронно с перезагрузкой страницы, приложение работать не будет
-    console.log(`form.todo.value = ${form.todo.value} title`); //обращаемся по name
-    console.log(`form.user.value = ${form.user.value} userId`); // тут тоже
-
-    console.log(idForSubmit);
+    
+    //console.log(idForSubmit);
     createTodo({
         userId : Number(form.user.value),
-        // id : idForSubmit,////////////////////////////////////////////////////////////////////////////////
+        // id : idForSubmit,
         title : form.todo.value,
         completed : false
     });
-    // idForSubmit++;//////////////////////////////////////////////////////////////////////////////////
+    // idForSubmit++;
+    form.todo.value = "";
 }
 
 function handlerCheckboxChange() {
