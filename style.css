@@ -60,3 +60,11 @@ ul {
 .close:hover {
     color:tomato
 }
+
+.liText {
+    width: 100%;
+}
+
+.strikethroughText {
+    text-decoration: line-through;
+}
