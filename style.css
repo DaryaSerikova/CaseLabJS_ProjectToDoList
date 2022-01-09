@@ -29,7 +29,7 @@ form input, form select {
 input[type="text"] {
     width: 100%;
 }
-form > button {
+/* form > button {
     cursor: pointer;
     background-color: mediumorchid;
     color: white;
@@ -38,6 +38,27 @@ form > button {
 }
 form > button:hover {
     background-color: violet;
+} */
+button {
+    cursor: pointer;
+    background-color: mediumorchid;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.8rem;
+    width: 500px;
+}
+button:hover {
+    background-color: violet;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+.deleteAllTodo {
+    margin: 2rem auto;
+    margin-top: 0;
+
 }
 
 ul {
